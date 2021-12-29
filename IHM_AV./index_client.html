@@ -6,14 +6,13 @@
 </head>
 <body>
     <h1>Is connected ? <span id="status">No</span></h1>
-    <h3>Send</h3>
+    <button id="play">Play</button>
+    <button id="pause">Pause</button>
     <input type="text" id="send-message">
-    <button id="send-button">Send</button>
+    <button id="send">Send</button>
     <br/>
     <br/>
     <br/>
-    <h3>Receive</h3>
-    <p id="answer"></p>
 </body>
 <script type="application/javascript" >
     const url = 'ws://info5-websocket-server.herokuapp.com';
@@ -39,15 +38,25 @@
     ws.onclose = () => {
         document.getElementById("status").innerText = "No";
     }
-    ws.onmessage = (msg) => {
-        document.getElementById("answer").innerText += "\n\n" + msg.data;
-    }
 
-    function emit() {
-        let msg = document.getElementById("send-message").value;
+    function emit_play() {
+        let msg = "play";
         ws.send(JSON.stringify({ data: msg }));
     }
 
-    document.getElementById("send-button").addEventListener("click", emit)
+    function emit_pause() {
+        let msg = "pause";
+        ws.send(JSON.stringify({ data: msg }));
+    }
+
+    function emit_send() {
+        let msg = document.getElementById("send-message").value;;
+        ws.send(JSON.stringify({ data: msg }));
+    }
+
+    document.getElementById("play").addEventListener("click", emit_play)
+    document.getElementById("pause").addEventListener("click", emit_pause)
+    document.getElementById("send").addEventListener("click", emit_send)
+
 </script>
 </html>

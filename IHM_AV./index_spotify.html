@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Is connected ? <span id="status">No</span></h1>
+    <br/>
+    <br/>
+    <br/>
+    <h3>Receive</h3>
+    <p id="answer"></p>
+</body>
+<script type="application/javascript" >
+    const url = 'ws://info5-websocket-server.herokuapp.com';
+    let ws = new WebSocket(url);
+
+    function keepAlive(server) {
+        let timeout = 20000;
+        let ping = () => {
+            if (server.readyState === server.OPEN) {
+                server.send(JSON.stringify({ id: "ping" }));
+            } else {
+                document.getElementById("status").innerText = "No";
+            }
+            setTimeout(ping, timeout);
+        };
+        ping();
+    }
+
+    keepAlive(ws);
+    ws.onopen = () => {
+        document.getElementById("status").innerText = "Yes";
+    }
+    ws.onclose = () => {
+        document.getElementById("status").innerText = "No";
+    }
+    ws.onmessage = (msg) => {
+        document.getElementById("answer").innerText += "\n\n" + msg.data;
+    }
+
+</script>
+</html>
