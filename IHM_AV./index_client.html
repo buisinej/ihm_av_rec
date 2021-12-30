@@ -40,12 +40,12 @@
     }
 
     function emit_play() {
-        let msg = "play";
+        let msg = "play_ask";
         ws.send(JSON.stringify({ data: msg }));
     }
 
     function emit_pause() {
-        let msg = "pause";
+        let msg = "pause_ask";
         ws.send(JSON.stringify({ data: msg }));
     }
 
