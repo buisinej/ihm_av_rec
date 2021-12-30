@@ -147,15 +147,19 @@
     }
 
     keepAlive(ws);
-	var my_button = document.getElementById("playbutton");
+	var button1 = document.getElementById("playbutton");
+	var button2 = document.getElementById("pausebutton");
     ws.onmessage = (msg) => {
 		console.log(msg.data);
 		console.log(JSON.parse(msg.data));
 		var parsed_msg = JSON.parse(msg.data);
 		if((parsed_msg.data).includes("play")){
-			// angular.element(my_button.firstChild).triggerHandler("click");
 			console.log("play !!!!!!");
-			timeout(function() {     angular.element(getElementById("playbutton")).triggerHandler('click'); }, 0);
+			button1.click();
+}
+		else if ((parsed_msg.data).includes("pause")){
+			console.log("pause !!!!!!");
+			button2.click();
 }
 	else{
 		console.log("debug");
