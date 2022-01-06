@@ -80,9 +80,9 @@
 
 		$scope.query = '';
 
-		$scope.loadsearch = function(music_name) {
+		$scope.loadsearch = function() {
 			console.log('search for', $scope.query);
-			$location.path('/search').search({ q: music_name }).replace();
+			$location.path('/search').search({q:$scope.query}).replace();
 		};
 
 
